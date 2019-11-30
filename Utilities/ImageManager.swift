@@ -21,6 +21,19 @@ class ImageManager {
     private let baseURL = "https://www.sinfest.net/btphp/comics/%@"
     
     
+    static func loadCurrentAndPrevious(_ backlog: Int) {
+        for c in 0..<backlog {
+            DispatchQueue.global(qos: .utility).async {
+                let date = Date().addingTimeInterval( TimeInterval(-(c * 86400)) )
+                print("date; %@", date)
+                ImageManager.shared.loadImageForDate(date)
+            }
+        }
+        
+        
+            
+    }
+    
     func loadImageForDate(_ date: Date) {
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"

@@ -19,6 +19,6 @@ struct SinRow: View {
 
 struct SinRow_Previews: PreviewProvider {
     static var previews: some View {
-        SinRow(sin: SinImage[0])
+        SinRow(sin: SinImage(path: "", name: "", thumb: nil))
     }
 }
