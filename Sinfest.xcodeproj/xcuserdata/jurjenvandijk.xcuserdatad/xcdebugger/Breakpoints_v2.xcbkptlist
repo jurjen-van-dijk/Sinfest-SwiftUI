@@ -7,15 +7,15 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "C86D882F-6897-409B-A7A0-539A625B073F"
+            uuid = "447117B4-9AFD-4E35-859C-C23AEF3B99EB"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Utilities/ImageManager.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "140"
-            endingLineNumber = "140"
+            startingLineNumber = "184"
+            endingLineNumber = "184"
             landmarkName = "listImagesFromDisk()"
             landmarkType = "7">
          </BreakpointContent>

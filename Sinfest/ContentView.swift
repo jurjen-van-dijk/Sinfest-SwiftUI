@@ -12,16 +12,17 @@ class Worker {
     func doSomething() {
         print("hallo")
         ImageManager.shared.loadImageForDate(Date())
-        sinList = ImageManager.shared.listImagesFromDisk()
     }
 }
 
 let worker = Worker()
-var sinList: [SinImage]?
 
 
 struct ContentView: View {
     @State private var showingAlert = false
+    
+    
+    
     var body: some View {
         NavigationView {
             
@@ -29,17 +30,12 @@ struct ContentView: View {
                 Text("Sinfest Viewer")
                     .font(.title)
                 Image("percy_pooch")
-                Button(action: {
-                    
-                    worker.doSomething()
-
-                }) {
-                    Text("Show details")
-                }
-
+                NavigationLink("To the comics", destination: ComicsView())
             }
+             
             .navigationBarTitle("Sinfest", displayMode: .inline)
             .navigationBarItems(leading:
+
                Button(action: {
                    self.showingAlert = true
                }) {
@@ -50,7 +46,7 @@ struct ContentView: View {
                },
                 trailing:
                  Button("To the comics") {
-                     print("Help tapped!")
+                     
                  })
         }
     }

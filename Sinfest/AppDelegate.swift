@@ -8,13 +8,18 @@
 
 import UIKit
 
+let notificationSinLoaded = NSNotification.Name(rawValue: "SinLoaded")
+let notificationLoadSins = NSNotification.Name(rawValue: "LoadSins")
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         ImageManager.loadCurrentAndPrevious(10)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(loadImages), name: notificationLoadSins, object: nil)
+        NotificationCenter.default.post(name: notificationLoadSins, object: nil)
         return true
     }
 
@@ -32,6 +37,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
+    @objc func loadImages() {
+        ImageManager.shared.listImagesFromDisk()
+    }
 
 }
 
