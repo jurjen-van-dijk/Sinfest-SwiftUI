@@ -8,6 +8,8 @@
 
 import UIKit
 
+// swiftlint:disable line_length
+
 let notificationSinLoaded = NSNotification.Name(rawValue: "SinLoaded")
 let notificationLoadSins = NSNotification.Name(rawValue: "LoadSins")
 
@@ -16,8 +18,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        ImageManager.loadCurrentAndPrevious(10)
-        
+        ImageManager.shared.loadCurrentAndPrevious(10)
+
         NotificationCenter.default.addObserver(self, selector: #selector(loadImages), name: notificationLoadSins, object: nil)
         NotificationCenter.default.post(name: notificationLoadSins, object: nil)
         return true
@@ -38,8 +40,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     @objc func loadImages() {
-        ImageManager.shared.listImagesFromDisk()
+        _ = ImageManager.shared.listImagesFromDisk()
     }
 
 }
-

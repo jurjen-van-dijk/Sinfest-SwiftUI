@@ -15,93 +15,25 @@ struct SinImage {
 }
 
 class SinList: ObservableObject {
-    @Published var dataIsLoaded: Bool = false
+    @Published var sinsLoading: Bool = false
     @Published var sins = [SinImage]()
-}
-
-extension SinList: Identifiable {
-    
 }
 
 var sinList = SinList()
 
+// swiftlint:disable line_length
 class ImageManager: ObservableObject {
 
     static let shared = ImageManager()
     private let baseURL = "https://www.sinfest.net/btphp/comics/%@"
-    
-    
-    static func loadCurrentAndPrevious(_ backlog: Int) {
-        for c in 0..<backlog {
-            DispatchQueue.global(qos: .utility).async {
-                let date = Date().addingTimeInterval( TimeInterval(-(c * 86400)) )
-                print("date; %@", date)
-                ImageManager.shared.loadImageForDate(date)
-            }
-        }
-    }
-    
-    func appendToList(_ backlog: Int) {
-        let lastSin = sinList.sins.last
-        
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.calendar = Calendar.current
-        formatter.timeZone = TimeZone.current
-        formatter.locale = Locale.current
-        if let date = formatter.date(from: lastSin?.name ?? "2019-12-01") {
-            loadForDateAndPrevious(startDate: date, backlog: 10)
-        }
-    }
-    
-    func loadForDateAndPrevious(startDate: Date, backlog: Int) {
-        for c in 0..<backlog {
-            DispatchQueue.global(qos: .utility).async {
-                let date = startDate.addingTimeInterval( TimeInterval(-(c * 86400)) )
-                print("date ", date)
-                ImageManager.shared.loadImageForDate(date)
-                if c == backlog - 1 {
-                    NotificationCenter.default.post(name: notificationLoadSins, object: nil)
-                }
-            }
-        }
-    }
-    
-    func loadImageForDate(_ date: Date) {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "yyyy-MM-dd"
-        formatter.calendar = Calendar.current
-        formatter.timeZone = TimeZone.current
-        formatter.locale = Locale.current
-        let dateName = formatter.string(from: date)
-        loadImage(dateName)
-        
-    }
-    
-    func loadImage(_ dateName: String) {
 
-        let localName = dateName + ".jpg"
-        if let img = loadImageFromDiskWith(fileName: localName) {
-            NotificationCenter.default.post(name: notificationSinLoaded, object: img)
-            return
-        }
-        let remoteName = dateName + ".gif"
-        guard let url = URL(string: String(format: baseURL, remoteName)) else {
-            return
-        }
-        DispatchQueue.main.async() { [weak self] in
+    var loaded = 0
 
-            if let data = try? Data(contentsOf: url, options: .alwaysMapped) {
-                if let image = UIImage.gifImageWithData(data) {
-                    self?.saveImage(imageName: dateName, image: image)
-                    NotificationCenter.default.post(name: notificationSinLoaded, object: image)
-                } else {
-                    print("ERROR")
-                }
-            }
-        }
+    init() {
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveProcessedImage(_:)), name: notificationSinLoaded, object: nil   )
     }
-    
+
+    // MARK: - Image storing/loading
     func saveImage(imageName: String, image: UIImage) {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return
@@ -127,7 +59,32 @@ class ImageManager: ObservableObject {
         } catch let error {
             print("error saving file with error", error)
         }
+    }
 
+    func loadImage(_ dateName: String) {
+        let localName = dateName + ".jpg"
+        if loadImageFromDiskWith(fileName: localName) != nil {
+            NotificationCenter.default.post(name: notificationSinLoaded, object: dateName)
+            return
+        }
+        let remoteName = dateName + ".gif"
+        guard let url = URL(string: String(format: baseURL, remoteName)) else {
+            return
+        }
+        print("Load ", url.absoluteString)
+        //DispatchQueue.main.async { [weak self] in
+
+            if let data = try? Data(contentsOf: url, options: .alwaysMapped) {
+                if let image = UIImage.gifImageWithData(data) {
+                    saveImage(imageName: dateName, image: image)
+                    NotificationCenter.default.post(name: notificationSinLoaded, object: dateName)
+                } else {
+                    print("ERROR")
+                }
+            } else {
+               print("ERROR")
+           }
+        //}
     }
 
     func loadImageFromDiskWith(fileName: String) -> Image? {
@@ -143,16 +100,51 @@ class ImageManager: ObservableObject {
                 return Image(uiImage: image)
             }
         }
-
         return nil
     }
-    
-    func listImagesFromDisk() -> [SinImage] {
-        
-        DispatchQueue.main.async {
-            sinList.dataIsLoaded = false
+
+    // MARK: - Cache management, list loader
+    func appendToList(_ backlog: Int) {
+        let lastSin = sinList.sins.last
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = Calendar.current
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
+        if let date = formatter.date(from: lastSin?.name ?? "2019-12-01") {
+            loadForDateAndPrevious(startDate: date, backlog: 10)
         }
-        
+    }
+
+    func loadCurrentAndPrevious(_ backlog: Int) {
+        loadForDateAndPrevious(startDate: Date(), backlog: backlog)
+    }
+
+    func loadForDateAndPrevious(startDate: Date, backlog: Int) {
+        sinList.sinsLoading = true
+        loaded = backlog
+        for cnt in 0..<backlog {
+            let date = startDate.addingTimeInterval( TimeInterval(-(cnt * 86400)) )
+            print("date ", date)
+            let dateName = dateToString(date: date)
+            DispatchQueue.global(qos: .utility).async {
+                ImageManager.shared.loadImage(dateName)
+            }
+        }
+    }
+
+    func dateToString( date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.calendar = Calendar.current
+        formatter.timeZone = TimeZone.current
+        formatter.locale = Locale.current
+        let dateName = formatter.string(from: date)
+        return dateName
+    }
+
+    func listImagesFromDisk() -> [SinImage] {
+
         let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
 
         let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
@@ -160,9 +152,8 @@ class ImageManager: ObservableObject {
         var retVal = [SinImage]()
         if let dirPath = paths.first {
 
-
             let filemgr = FileManager.default
-            guard let enumerator:FileManager.DirectoryEnumerator = filemgr.enumerator(atPath: dirPath) else {
+            guard let enumerator: FileManager.DirectoryEnumerator = filemgr.enumerator(atPath: dirPath) else {
                 return retVal
             }
             while let element = enumerator.nextObject() as? String {
@@ -173,7 +164,7 @@ class ImageManager: ObservableObject {
                         if let img = loadImageFromDiskWith(fileName: element) {
                             let newImg = SinImage(path: totalPath, name: name, image: img)
                             retVal.append(newImg)
-                            print(element)
+                            print("this ", element)
                         }
                     }
                 }
@@ -181,9 +172,20 @@ class ImageManager: ObservableObject {
         }
         DispatchQueue.main.async {
             sinList.sins = retVal.sorted(by: { $0.name > $1.name })
-            sinList.dataIsLoaded = true
+            sinList.sinsLoading = false
         }
         return retVal
     }
-    
+
+    // MARK: - Loader listener
+    @objc func receiveProcessedImage(_ notification: Notification) {
+
+        loaded -= 1
+        print("loaded ", loaded)
+        if loaded <= 0 {
+            print("loaded %d -> POST")
+            NotificationCenter.default.post(name: notificationLoadSins, object: nil)
+        }
+    }
+
 }

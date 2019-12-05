@@ -3,10 +3,16 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D2E30C223964E3900DB0C11 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 3D2E30C123964E3900DB0C11 /* Lottie */; };
+		3D2E30C62396507900DB0C11 /* loader.json in Resources */ = {isa = PBXBuildFile; fileRef = 3D2E30C52396507900DB0C11 /* loader.json */; };
+		3D2E30CA23966E7F00DB0C11 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E30C923966E7F00DB0C11 /* ActivityIndicator.swift */; };
+		3D2E30CC2396A8BE00DB0C11 /* MyUIHostingController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E30CB2396A8BE00DB0C11 /* MyUIHostingController.swift */; };
+		3D2E30CE2396A9B500DB0C11 /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D2E30CD2396A9B500DB0C11 /* Model.swift */; };
+		3DAFE52F2399167E00B2E6D0 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DAFE52E2399167E00B2E6D0 /* SettingsView.swift */; };
 		3DB60D12238C017200CE871F /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D11238C017200CE871F /* AppDelegate.swift */; };
 		3DB60D14238C017200CE871F /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D13238C017200CE871F /* SceneDelegate.swift */; };
 		3DB60D16238C017200CE871F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D15238C017200CE871F /* ContentView.swift */; };
@@ -16,6 +22,7 @@
 		3DB60D29238C017300CE871F /* SinfestTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D28238C017300CE871F /* SinfestTests.swift */; };
 		3DB60D34238C017300CE871F /* SinfestUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D33238C017300CE871F /* SinfestUITests.swift */; };
 		3DB60D43238C019500CE871F /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DB60D42238C019500CE871F /* ImageManager.swift */; };
+		3DC1367A2398ED66001C844A /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DC136792398ED66001C844A /* Default-568h@2x.png */; };
 		3DC14F7B238D1A6400E39B5D /* ComicsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC14F7A238D1A6400E39B5D /* ComicsView.swift */; };
 		3DC14F7D238D4D1E00E39B5D /* UIImage+GIF.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC14F7C238D4D1E00E39B5D /* UIImage+GIF.swift */; };
 		3DC14F80238E51DF00E39B5D /* SinRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3DC14F7F238E51DF00E39B5D /* SinRow.swift */; };
@@ -39,6 +46,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3D2E30C52396507900DB0C11 /* loader.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = loader.json; sourceTree = "<group>"; };
+		3D2E30C923966E7F00DB0C11 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
+		3D2E30CB2396A8BE00DB0C11 /* MyUIHostingController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyUIHostingController.swift; sourceTree = "<group>"; };
+		3D2E30CD2396A9B500DB0C11 /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3DAFE52E2399167E00B2E6D0 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 		3DB60D0E238C017200CE871F /* Sinfest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sinfest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DB60D11238C017200CE871F /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3DB60D13238C017200CE871F /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,6 +66,7 @@
 		3DB60D33238C017300CE871F /* SinfestUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinfestUITests.swift; sourceTree = "<group>"; };
 		3DB60D35238C017300CE871F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3DB60D42238C019500CE871F /* ImageManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
+		3DC136792398ED66001C844A /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3DC14F7A238D1A6400E39B5D /* ComicsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComicsView.swift; sourceTree = "<group>"; };
 		3DC14F7C238D4D1E00E39B5D /* UIImage+GIF.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+GIF.swift"; sourceTree = "<group>"; };
 		3DC14F7F238E51DF00E39B5D /* SinRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SinRow.swift; sourceTree = "<group>"; };
@@ -64,6 +77,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D2E30C223964E3900DB0C11 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -84,6 +98,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D2E30BB23964CC800DB0C11 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				3D2E30C923966E7F00DB0C11 /* ActivityIndicator.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		3D2E30C32396503B00DB0C11 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				3DC136792398ED66001C844A /* Default-568h@2x.png */,
+				3DB60D19238C017300CE871F /* Preview Content */,
+				3D2E30C42396506500DB0C11 /* Lottie animations */,
+				3DB60D17238C017300CE871F /* Assets.xcassets */,
+				3D2E30CD2396A9B500DB0C11 /* Model.swift */,
+			);
+			path = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		3D2E30C42396506500DB0C11 /* Lottie animations */ = {
+			isa = PBXGroup;
+			children = (
+				3D2E30C52396507900DB0C11 /* loader.json */,
+			);
+			path = "Lottie animations";
+			sourceTree = "<group>";
+		};
 		3DB60D05238C017200CE871F = {
 			isa = PBXGroup;
 			children = (
@@ -107,16 +149,17 @@
 		3DB60D10238C017200CE871F /* Sinfest */ = {
 			isa = PBXGroup;
 			children = (
+				3D2E30BB23964CC800DB0C11 /* Components */,
 				3DC14F7E238E51CA00E39B5D /* View */,
 				3DB60D41238C019500CE871F /* Utilities */,
 				3DB60D11238C017200CE871F /* AppDelegate.swift */,
 				3DB60D13238C017200CE871F /* SceneDelegate.swift */,
 				3DB60D15238C017200CE871F /* ContentView.swift */,
 				3DC14F7A238D1A6400E39B5D /* ComicsView.swift */,
-				3DB60D17238C017300CE871F /* Assets.xcassets */,
-				3DB60D1C238C017300CE871F /* LaunchScreen.storyboard */,
+				3DAFE52E2399167E00B2E6D0 /* SettingsView.swift */,
 				3DB60D1F238C017300CE871F /* Info.plist */,
-				3DB60D19238C017300CE871F /* Preview Content */,
+				3DB60D1C238C017300CE871F /* LaunchScreen.storyboard */,
+				3D2E30C32396503B00DB0C11 /* Supporting Files */,
 			);
 			path = Sinfest;
 			sourceTree = "<group>";
@@ -152,6 +195,7 @@
 			children = (
 				3DB60D42238C019500CE871F /* ImageManager.swift */,
 				3DC14F7C238D4D1E00E39B5D /* UIImage+GIF.swift */,
+				3D2E30CB2396A8BE00DB0C11 /* MyUIHostingController.swift */,
 			);
 			path = Utilities;
 			sourceTree = SOURCE_ROOT;
@@ -174,12 +218,16 @@
 				3DB60D0A238C017200CE871F /* Sources */,
 				3DB60D0B238C017200CE871F /* Frameworks */,
 				3DB60D0C238C017200CE871F /* Resources */,
+				3D2E30BA239646C900DB0C11 /* Lint */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = Sinfest;
+			packageProductDependencies = (
+				3D2E30C123964E3900DB0C11 /* Lottie */,
+			);
 			productName = Sinfest;
 			productReference = 3DB60D0E238C017200CE871F /* Sinfest.app */;
 			productType = "com.apple.product-type.application";
@@ -252,6 +300,9 @@
 				Base,
 			);
 			mainGroup = 3DB60D05238C017200CE871F;
+			packageReferences = (
+				3D2E30C023964E3900DB0C11 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			productRefGroup = 3DB60D0F238C017200CE871F /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -270,6 +321,8 @@
 			files = (
 				3DB60D1E238C017300CE871F /* LaunchScreen.storyboard in Resources */,
 				3DB60D1B238C017300CE871F /* Preview Assets.xcassets in Resources */,
+				3D2E30C62396507900DB0C11 /* loader.json in Resources */,
+				3DC1367A2398ED66001C844A /* Default-568h@2x.png in Resources */,
 				3DB60D18238C017300CE871F /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -290,6 +343,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3D2E30BA239646C900DB0C11 /* Lint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			name = Lint;
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if which swiftlint >/dev/null; then\n  swiftlint\nelse\n  echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		3DB60D0A238C017200CE871F /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -300,8 +374,12 @@
 				3DB60D14238C017200CE871F /* SceneDelegate.swift in Sources */,
 				3DB60D16238C017200CE871F /* ContentView.swift in Sources */,
 				3DC14F7D238D4D1E00E39B5D /* UIImage+GIF.swift in Sources */,
+				3D2E30CE2396A9B500DB0C11 /* Model.swift in Sources */,
+				3D2E30CC2396A8BE00DB0C11 /* MyUIHostingController.swift in Sources */,
+				3D2E30CA23966E7F00DB0C11 /* ActivityIndicator.swift in Sources */,
 				3DB60D43238C019500CE871F /* ImageManager.swift in Sources */,
 				3DC14F80238E51DF00E39B5D /* SinRow.swift in Sources */,
+				3DAFE52F2399167E00B2E6D0 /* SettingsView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -467,10 +545,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sinfest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sinfest/Supporting Files/Preview Content\"";
 				DEVELOPMENT_TEAM = DU697AAF3C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sinfest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -487,10 +566,11 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"Sinfest/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Sinfest/Supporting Files/Preview Content\"";
 				DEVELOPMENT_TEAM = DU697AAF3C;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Sinfest/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -626,6 +706,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3D2E30C023964E3900DB0C11 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.1.5;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3D2E30C123964E3900DB0C11 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3D2E30C023964E3900DB0C11 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3DB60D06238C017200CE871F /* Project object */;
 }

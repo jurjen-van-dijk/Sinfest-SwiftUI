@@ -10,28 +10,17 @@ import SwiftUI
 
 struct ComicsView: View {
     @ObservedObject var sins = sinList
-    
-    var body: some View {
 
-//        GeometryReader { geometry in
-//            if geometry.frame(in: CoordinateSpace.global) {
-//                ImageManager.shared.appendToList(10)
-//            }
-//            List( self.sins.sins, id: \.name) { sin in
-//                //NavigationLink(
-//                //  destination: ContentView()) {
-//                    SinRow(sin: sin)
-//                //    }
-//            }
-//            Rectangle().onAppear { print("Reached end of scroll view")  }
-//
-//        }
-        List {
-            ForEach(self.sins.sins, id: \.name ) { sin in
-                SinRow(sin: sin)
+    var body: some View {
+        LoadingView(isShowing: .constant(sins.sinsLoading)) {
+            List {
+                ForEach(self.sins.sins, id: \.name ) { sin in
+                    SinRow(sin: sin)
+                }
+                Rectangle()
+                    .foregroundColor(.clear)
+                    .onAppear { ImageManager.shared.appendToList(10) }
             }
-            Rectangle()
-                .onAppear { ImageManager.shared.appendToList(10) }
         }
     }
 }
