@@ -9,7 +9,7 @@
 import SwiftUI
 
 struct ComicsView: View {
-    @ObservedObject var sins = sinList
+    @ObservedObject var sins = ImageManager.shared.sinList
 
     var body: some View {
         LoadingView(isShowing: .constant(sins.sinsLoading)) {
@@ -19,7 +19,7 @@ struct ComicsView: View {
                 }
                 Rectangle()
                     .foregroundColor(.clear)
-                    .onAppear { ImageManager.shared.appendToList(10) }
+                    .onAppear { ImageManager.shared.appendToBottomOfList(10) }
             }
         }
     }

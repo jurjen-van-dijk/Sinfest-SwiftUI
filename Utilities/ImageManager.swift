@@ -19,10 +19,9 @@ class SinList: ObservableObject {
     @Published var sins = [SinImage]()
 }
 
-var sinList = SinList()
-
 // swiftlint:disable line_length
 class ImageManager: ObservableObject {
+    @Published var sinList = SinList()
 
     static let shared = ImageManager()
     private let baseURL = "https://www.sinfest.net/btphp/comics/%@"
@@ -104,7 +103,20 @@ class ImageManager: ObservableObject {
     }
 
     // MARK: - Cache management, list loader
-    func appendToList(_ backlog: Int) {
+//    func appendToTopOfList(_ backlog: Int) {
+//        let lastSin = sinList.sins.first
+//        let formatter = DateFormatter()
+//        formatter.dateFormat = "yyyy-MM-dd"
+//        formatter.calendar = Calendar.current
+//        formatter.timeZone = TimeZone.current
+//        formatter.locale = Locale.current
+//        if let date = formatter.date(from: lastSin?.name ?? "2019-12-01") {
+//            let startDate = date.addingTimeInterval( TimeInterval(-(cnt * 86400)) )
+//            loadForDateAndPrevious(startDate: date, backlog: backlog)
+//        }
+//    }
+
+    func appendToBottomOfList(_ backlog: Int) {
         let lastSin = sinList.sins.last
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
@@ -112,7 +124,7 @@ class ImageManager: ObservableObject {
         formatter.timeZone = TimeZone.current
         formatter.locale = Locale.current
         if let date = formatter.date(from: lastSin?.name ?? "2019-12-01") {
-            loadForDateAndPrevious(startDate: date, backlog: 10)
+            loadForDateAndPrevious(startDate: date, backlog: backlog)
         }
     }
 
@@ -171,8 +183,8 @@ class ImageManager: ObservableObject {
             }
         }
         DispatchQueue.main.async {
-            sinList.sins = retVal.sorted(by: { $0.name > $1.name })
-            sinList.sinsLoading = false
+            self.sinList.sins = retVal.sorted(by: { $0.name > $1.name })
+            self.sinList.sinsLoading = false
         }
         return retVal
     }

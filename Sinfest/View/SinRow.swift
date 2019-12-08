@@ -20,7 +20,6 @@ struct SinRow: View {
 //                    LongPressGesture(minimumDuration: 1).onEnded { _ in
 //                            self.showingAlert = true
 //                    }
-//
 //            )
         }
 //        .alert(isPresented: $showingAlert) {

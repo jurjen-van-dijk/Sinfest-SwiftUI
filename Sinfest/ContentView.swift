@@ -8,15 +8,6 @@
 
 import SwiftUI
 
-class Worker {
-    func doSomething() {
-        print("hallo")
-        //ImageManager.shared.loadImageForDate(Date())
-    }
-}
-
-let worker = Worker()
-
 struct ContentView: View {
     @EnvironmentObject var model: Model
     @State private var showingAlert = false
@@ -43,9 +34,8 @@ struct ContentView: View {
                    Alert(title: Text("About"), message: Text(versionText), dismissButton: .default(Text("OK")))
                },
                 trailing:
-                 NavigationLink(destination: SettingsView()) {
-                     Text("Settings")
-                 })
+                 NavigationLink("Settings", destination: SettingsView())
+                )
         }
     }
 }
