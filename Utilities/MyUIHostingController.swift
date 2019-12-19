@@ -19,7 +19,6 @@ class MyUIHostingController<Content>: UIHostingController<Content> where Content
         NotificationCenter.default.post(name: .onViewWillTransition, object: nil, userInfo: ["size": size])
         super.viewWillTransition(to: size, with: coordinator)
     }
-    
     override func viewDidLayoutSubviews() {
         NotificationCenter.default.post(name: .onViewDidLayoutSubviews, object: nil, userInfo: nil)
         super.viewDidLayoutSubviews()

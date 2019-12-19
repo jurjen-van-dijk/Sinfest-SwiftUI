@@ -9,24 +9,30 @@
 import SwiftUI
 
 struct ComicsView: View {
+    @State var sortAsc: Bool
     @ObservedObject var sins = ImageManager.shared.sinList
 
     var body: some View {
-        LoadingView(isShowing: .constant(sins.sinsLoading)) {
-            List {
-                ForEach(self.sins.sins, id: \.name ) { sin in
-                    SinRow(sin: sin)
-                }
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .onAppear { ImageManager.shared.appendToBottomOfList(10) }
+
+        LoadingView(isShowing: .constant(self.sins.sinsLoading)) {
+
+        RefreshableNavigationView(title: "", action: {
+                                    ImageManager.shared.appendToBottomOfList(50, sortAsc: self.sortAsc)
+
+                }, content: {
+                    ForEach(self.sins.sins, id: \.name ) { sin in
+                        SinRow(sin: sin)
+                    }
+                })
             }
+        .onAppear {
+             _ = ImageManager.shared.listImagesFromDisk(self.sortAsc)
         }
     }
 }
 
 struct ComicsView_Previews: PreviewProvider {
     static var previews: some View {
-        ComicsView()
+        ComicsView(sortAsc: false)
     }
 }

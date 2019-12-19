@@ -14,8 +14,14 @@ class Model: ObservableObject {
 
     init(isLandscape: Bool) {
         self.landscape = isLandscape // Initial value
-        NotificationCenter.default.addObserver(self, selector: #selector(onViewWillTransition(notification:)), name: .onViewWillTransition, object: nil)
-//        NotificationCenter.default.addObserver(self, selector: #selector(onViewDidTransition(notification:)), name: .onViewDidLayoutSubviews, object: nil)
+        NotificationCenter.default.addObserver(self,
+                                               selector: #selector(onViewWillTransition(notification:)),
+                                               name: .onViewWillTransition,
+                                               object: nil)
+//        NotificationCenter.default.addObserver(self,
+//                                               selector: #selector(onViewDidTransition(notification:)),
+//                                               name: .onViewDidLayoutSubviews,
+//                                               object: nil)
     }
 
     @objc func onViewWillTransition(notification: Notification) {

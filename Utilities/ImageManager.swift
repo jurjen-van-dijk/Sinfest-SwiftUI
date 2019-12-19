@@ -17,11 +17,13 @@ struct SinImage {
 class SinList: ObservableObject {
     @Published var sinsLoading: Bool = false
     @Published var sins = [SinImage]()
+    var oldestSin: SinImage? = nil
 }
 
 // swiftlint:disable line_length
 class ImageManager: ObservableObject {
     @Published var sinList = SinList()
+    var sortAsc = false
 
     static let shared = ImageManager()
     private let baseURL = "https://www.sinfest.net/btphp/comics/%@"
@@ -29,7 +31,7 @@ class ImageManager: ObservableObject {
     var loaded = 0
 
     init() {
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveProcessedImage(_:)), name: notificationSinLoaded, object: nil   )
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveProcessedImage(_:)), name: .notificationSinLoaded, object: nil)
     }
 
     // MARK: - Image storing/loading
@@ -63,7 +65,7 @@ class ImageManager: ObservableObject {
     func loadImage(_ dateName: String) {
         let localName = dateName + ".jpg"
         if loadImageFromDiskWith(fileName: localName) != nil {
-            NotificationCenter.default.post(name: notificationSinLoaded, object: dateName)
+            NotificationCenter.default.post(name: .notificationSinLoaded, object: dateName)
             return
         }
         let remoteName = dateName + ".gif"
@@ -71,19 +73,19 @@ class ImageManager: ObservableObject {
             return
         }
         print("Load ", url.absoluteString)
-        //DispatchQueue.main.async { [weak self] in
 
-            if let data = try? Data(contentsOf: url, options: .alwaysMapped) {
-                if let image = UIImage.gifImageWithData(data) {
-                    saveImage(imageName: dateName, image: image)
-                    NotificationCenter.default.post(name: notificationSinLoaded, object: dateName)
-                } else {
-                    print("ERROR")
-                }
+        if let data = try? Data(contentsOf: url, options: .alwaysMapped) {
+            if let image = UIImage.gifImageWithData(data) {
+                saveImage(imageName: dateName, image: image)
+                NotificationCenter.default.post(name: .notificationSinLoaded, object: dateName)
             } else {
-               print("ERROR")
-           }
-        //}
+                loaded -= 1
+                print("ERROR")
+            }
+        } else {
+            loaded -= 1
+            print("ERROR")
+       }
     }
 
     func loadImageFromDiskWith(fileName: String) -> Image? {
@@ -116,14 +118,15 @@ class ImageManager: ObservableObject {
 //        }
 //    }
 
-    func appendToBottomOfList(_ backlog: Int) {
-        let lastSin = sinList.sins.last
+    func appendToBottomOfList(_ backlog: Int, sortAsc: Bool) {
+        self.sortAsc = sortAsc
+        let lastSin = sinList.oldestSin
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd"
         formatter.calendar = Calendar.current
         formatter.timeZone = TimeZone.current
         formatter.locale = Locale.current
-        if let date = formatter.date(from: lastSin?.name ?? "2019-12-01") {
+        if let date = formatter.date(from: lastSin?.name ?? "2019-12-31") {
             loadForDateAndPrevious(startDate: date, backlog: backlog)
         }
     }
@@ -155,8 +158,8 @@ class ImageManager: ObservableObject {
         return dateName
     }
 
-    func listImagesFromDisk() -> [SinImage] {
-
+    func listImagesFromDisk(_ sortAsc: Bool) -> [SinImage] {
+        self.sortAsc = sortAsc
         let documentDirectory = FileManager.SearchPathDirectory.documentDirectory
 
         let userDomainMask = FileManager.SearchPathDomainMask.userDomainMask
@@ -183,8 +186,13 @@ class ImageManager: ObservableObject {
             }
         }
         DispatchQueue.main.async {
-            self.sinList.sins = retVal.sorted(by: { $0.name > $1.name })
+            self.sinList.oldestSin = retVal.sorted(by: { $0.name > $1.name }).last
             self.sinList.sinsLoading = false
+            if self.sortAsc {
+                self.sinList.sins = retVal.sorted(by: { $0.name > $1.name })
+            } else {
+                self.sinList.sins = retVal.sorted(by: { $0.name < $1.name })
+            }
         }
         return retVal
     }
@@ -196,7 +204,7 @@ class ImageManager: ObservableObject {
         print("loaded ", loaded)
         if loaded <= 0 {
             print("loaded %d -> POST")
-            NotificationCenter.default.post(name: notificationLoadSins, object: nil)
+            NotificationCenter.default.post(name: .notificationLoadSins, object: nil)
         }
     }
 

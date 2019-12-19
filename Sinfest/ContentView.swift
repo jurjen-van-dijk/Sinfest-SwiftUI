@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct ContentView: View {
+
     @EnvironmentObject var model: Model
     @State private var showingAlert = false
+    @State private var sortAsc = false
     let versionText = "Sinfest Reader for iOS, version 1.0"
 
     var body: some View {
@@ -19,7 +21,7 @@ struct ContentView: View {
                 Text("Sinfest Viewer")
                     .font(.title)
                 Image("percy_pooch")
-                NavigationLink("To the comics", destination: ComicsView())
+                NavigationLink("To the comics", destination: ComicsView(sortAsc: self.sortAsc))
             }
 
             .navigationBarTitle("Sinfest", displayMode: .inline)
@@ -34,7 +36,7 @@ struct ContentView: View {
                    Alert(title: Text("About"), message: Text(versionText), dismissButton: .default(Text("OK")))
                },
                 trailing:
-                 NavigationLink("Settings", destination: SettingsView())
+                NavigationLink("Settings", destination: SettingsView(onOff: $sortAsc))
                 )
         }
     }
