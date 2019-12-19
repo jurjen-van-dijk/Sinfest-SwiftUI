@@ -18,10 +18,15 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             VStack {
-                Text("Sinfest Viewer")
-                    .font(.title)
-                Image("percy_pooch")
-                NavigationLink("To the comics", destination: ComicsView(sortAsc: self.sortAsc))
+                Image("logo").resizable()
+                .scaledToFit()
+                .frame(width: 350.0, height: 220)
+                Image("percy_pooch").resizable()
+                .scaledToFit()
+                .frame(width: 250.0, height: 250)
+
+                NavigationLink("To the comics", destination: ComicsView(sortAsc: self.sortAsc)).font(.title).padding()
+                Spacer()
             }
 
             .navigationBarTitle("Sinfest", displayMode: .inline)
